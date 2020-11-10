@@ -1,0 +1,35 @@
+image: steveblackburn/comp1110-2020-s2-gitlab-ci:0.1.1
+
+stages:
+  - build
+  - test
+
+before_script:
+  - export CP=src:/exam/comp1110-exam-2020s2.jar:/exam/hamcrest-core-1.3.jar:/exam/junit-4.12.jar
+
+build:
+  tags:
+    - comp1110
+  stage: build
+  script:
+    - javac -encoding utf-8 $JAVAFX_OPTIONS -cp $CP src/comp1110/exam/*.java
+  artifacts:
+    paths:
+      - src/comp1110/exam/*.class
+
+P2:
+  tags:
+    - comp1110
+  stage: test
+  script:
+    - python3 /checkmc.py p-2.csv 4 abcde
+  allow_failure: true
+
+P1:
+  tags:
+    - comp1110
+  stage: test
+  script:
+    - java -cp $CP org.junit.runner.JUnitCore comp1110.exam.P1HelloWorldTest
+  allow_failure: true
+

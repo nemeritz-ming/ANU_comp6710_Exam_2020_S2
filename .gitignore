@@ -1,0 +1,10 @@
+*~
+clean.zip
+out
+assets/Q2output
+.idea/uiDesigner.xml
+.idea/vcs.xml
+.idea/workspace.xml
+.idea/compiler.xml
+.idea/copyright/
+.idea/encodings.xml
