@@ -27,6 +27,19 @@ public class Q1TwoThree {
    * @return true if number is a twothree number as defined above.
    */
   public static boolean twothree(String number) {
-    return true;  // FIXME complete this method
+    if (number.length() == 0){
+      return false;
+    }
+    if (number.equals("0")){
+      return false;
+    }
+    if (number.length() == 1 && (Integer.parseInt(number) % 2 == 0 || Integer.parseInt(number) % 3 == 0)){
+      return true;
+    }
+    else if (Integer.parseInt(number) % 2 == 0 || Integer.parseInt(number) % 3 == 0){
+      number = number.substring(0, number.length()-1);
+      return twothree(number);
+    }
+    return false; // FIXME complete this method
   }
 }

@@ -1,5 +1,7 @@
 package comp1110.exam;
 
+import java.util.Arrays;
+
 /**
  * COMP1110 Final Exam, Question 1.1
  *
@@ -19,6 +21,12 @@ public class Q1Floor {
      * or floor-1 if there is no such value
      */
     public static int findGreater(int[] in, int floor) {
-        return 0; // FIXME complete this method
+        Arrays.sort(in);
+        for (int i = 0; i < in.length; i++){
+            if (in[i] > floor){
+                return in[i];
+            }
+        }
+        return floor-1; // FIXME complete this method
     }
 }

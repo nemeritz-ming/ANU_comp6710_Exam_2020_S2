@@ -1,5 +1,8 @@
 package comp1110.exam;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * COMP1110 Final Exam, Question 4
  *
@@ -14,12 +17,19 @@ package comp1110.exam;
  * The wheel can spin around to move a new car to the bottom.
  */
 public class Q4FerrisWheel<T> {
+    List<List<T>> box;
+
     /**
      * Create a FerrisWheel with the given number of cars.
      *
      * @param numberOfCars the number of cars in the FerrisWheel
      */
     public Q4FerrisWheel(int numberOfCars) {
+        box = new ArrayList<>(numberOfCars);
+        for (int i = 0; i < numberOfCars; i++){
+            List<T> temp = new ArrayList<>(1);
+            box.add(temp);
+        }
         // FIXME complete this constructor
     }
 
@@ -29,7 +39,12 @@ public class Q4FerrisWheel<T> {
      */
     public boolean isEmpty() {
         // FIXME complete this method
-        return false;
+        for (int i = 0; i < box.size(); i++){
+            if(!box.get(i).isEmpty()){
+                return false;
+            }
+        }
+        return true;
     }
 
     /**
@@ -40,6 +55,13 @@ public class Q4FerrisWheel<T> {
      * @return true if the object was loaded
      */
     public boolean load(T obj) {
+        if(obj == null){
+            return false;
+        }
+        if (box.get(0).isEmpty()){
+            box.get(0).add(0,obj);
+            return true;
+        }
         // FIXME complete this method
         return false;
     }
@@ -52,6 +74,11 @@ public class Q4FerrisWheel<T> {
      * @return the object that was in the bottom car, or null if no such object
      */
     public T unload() {
+        if (!box.get(0).isEmpty()){
+            T temp = box.get(0).get(0);
+            box.get(0).clear();
+            return temp;
+        }
         // FIXME complete this method
         return null;
     }
@@ -63,6 +90,8 @@ public class Q4FerrisWheel<T> {
      * the first car becomes the second car, and so on.
      */
     public void spin() {
+        box.add(box.get(0));
+        box.remove(0);
         // FIXME complete this method
     }
 
@@ -75,6 +104,14 @@ public class Q4FerrisWheel<T> {
      * @return true if the value is contained in this ferris wheel
      */
     public boolean contains(T value) {
+        if (value == null){
+            return false;
+        }
+        for(int i = 0; i < box.size(); i++){
+            if (box.get(i).contains(value)){
+                return true;
+            }
+        }
         // FIXME complete this method
         return false;
     }
@@ -103,8 +140,24 @@ public class Q4FerrisWheel<T> {
      * @return a String representation of this ferris wheel
      */
     public String toString() {
+        String ans = "";
+        for (int i = 0; i < box.size(); i++){
+            if (i == 0){
+                if(!box.get(0).isEmpty()){
+                    ans += box.get(0).get(0);
+                }
+            }
+            else {
+                if(!box.get(i).isEmpty()){
+                    ans +="," + box.get(i).get(0);
+                }
+                else {
+                    ans += ",";
+                }
+            }
+        }
         // FIXME complete this method
-        return null;
+        return ans;
     }
 }
 

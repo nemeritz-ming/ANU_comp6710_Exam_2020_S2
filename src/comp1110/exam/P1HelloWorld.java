@@ -10,6 +10,6 @@ package comp1110.exam;
  */
 public class P1HelloWorld {
   public static void main(String[] args) {
-    // FIXME print out "Hello world!"
+    System.out.println("Hello world");
   }
 }

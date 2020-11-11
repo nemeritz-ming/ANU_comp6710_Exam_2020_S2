@@ -41,8 +41,14 @@ public class Q5Address {
      */
     @Override
     public int hashCode() {
+        String Name = streetNumber+ " "+streetName+" "+ postCode;
+        int ans = 0;
+        for (int i = 0; i < Name.length(); i++){
+            ans += (int) Name.charAt(i);
+        }
+        return ans;
         // FIXME complete this method
-        return new Random().nextInt(2);
+
     }
 
     /**
@@ -51,8 +57,9 @@ public class Q5Address {
      */
     @Override
     public boolean equals(Object object) {
+        String Name = streetNumber+ " "+streetName+" "+ postCode;;
         // FIXME complete this method
-        return false;
+        return object.hashCode() == Name.hashCode();
     }
 
     @Override

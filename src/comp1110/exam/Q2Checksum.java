@@ -1,5 +1,13 @@
 package comp1110.exam;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 /**
  * COMP1110 Final Exam, Question 2
  *
@@ -42,6 +50,51 @@ public class Q2Checksum {
    * @param checksum if true, include checksums in the output file
    */
   public static void checksum(String input, String output, boolean checksum) {
-    // FIXME complete this method
+    if(checksum){
+      try{
+        List<Integer> box = new ArrayList<>();
+        List<String> first = new ArrayList<>();
+        FileReader in = new FileReader(input);
+        int i = 0;
+        while ((i = in.read()) != -1) {
+          i = in.read();
+          box.add(i);
+        }
+        for (int j = 0; j < box.size(); j++) {
+          if (j % 10 == 0 && j + 10 < box.size()){
+            first.add(String.valueOf((char)(sum(box.subList(j+1,j+11)) % 26 + 97)));
+          }
+          else if (j % 10 == 0){
+            first.add(String.valueOf((char)(sum(box.subList(j+1,box.size())) % 26 + 97)));
+          }
+        }
+        List<Byte> Final = new ArrayList<>();
+//        for(int k = 0; k < (box.size() + first.size()); k++){
+//          if(k % 11 == 0){
+//            Final.add(first.get(0));
+//            first.remove(first.get(0));
+//          }
+//          else {
+//            Final.add(String.valueOf();
+//          }
+//        }
+
+      }catch (IOException e){
+        e.printStackTrace();
+      }
+    }
+
+
+  }
+  public static int sum(List<Integer> box){
+    int ans = 0;
+    for (Integer i : box){
+      ans += i;
+    }
+    return ans;
+  }
+
+  public static void main(String[] args) {
+    System.out.println(String.valueOf((char) (97)));
   }
 }

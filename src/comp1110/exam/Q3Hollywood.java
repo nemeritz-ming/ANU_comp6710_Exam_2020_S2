@@ -1,6 +1,9 @@
 package comp1110.exam;
 
-import java.util.Set;
+import java.io.File;
+import java.io.FileWriter;
+import java.lang.module.FindException;
+import java.util.*;
 
 /**
  * COMP1110 Exam, Question 3.1
@@ -12,6 +15,10 @@ import java.util.Set;
  * person may be either an actor, or a director, or both, for one or more films.
  */
 public class Q3Hollywood {
+    List<String> FileName = new ArrayList<>();
+    List<Integer> ProductionYear = new ArrayList<>();
+    List<String> Director = new ArrayList<>();
+    List<Set<String >> Actors = new ArrayList<>();
     /**
      * Add a new film to this library. If the given film name exists, do not
      * modify this library.
@@ -24,8 +31,18 @@ public class Q3Hollywood {
      * film was not added (because a film with the given name already exists)
      */
     public boolean addFilm(String filmName, int year, String director, Set<String> actors) {
+        if(FileName.contains(filmName)){
+            return false;
+        }
+        else{
+            this.FileName.add(filmName);
+            this.ProductionYear.add(year);
+            this.Director.add(director);
+            this.Actors.add(actors);
+            return true;
+        }
+
         // FIXME complete this method
-        return false;
     }
 
 
@@ -37,6 +54,19 @@ public class Q3Hollywood {
      * @return true if the removal was successful, otherwise false
      */
     public boolean deleteFilm(String filmName) {
+        int idx = -1;
+        if (FileName.contains(filmName)){
+            for (int i = 0; i < FileName.size(); i++){
+                if (FileName.get(i).equals(filmName)){
+                    idx=  i;
+                }
+            }
+            FileName.remove(idx);
+            ProductionYear.remove(idx);
+            Director.remove(idx);
+            Actors.remove(idx);
+            return true;
+        }
         // FIXME complete this method
         return false;
     }
@@ -46,7 +76,7 @@ public class Q3Hollywood {
      */
     public int getFilmCount() {
         // FIXME complete this method
-        return -1;
+        return FileName.size();
     }
 
     /**
@@ -57,8 +87,17 @@ public class Q3Hollywood {
      * @return the names of all films for which the given person was director
      */
     public Set<String> getFilmsDirectedBy(String directorName) {
+        Set<String> ans = new HashSet<>();
+        if(!Director.contains(directorName)){
+            return ans;
+        }
+        for (int i = 0; i < Director.size(); i++){
+            if(directorName.equals(Director.get(i))){
+                ans.add(FileName.get(i));
+            }
+        }
         // FIXME complete this method
-        return null;
+        return ans;
     }
 
     /**
@@ -72,8 +111,14 @@ public class Q3Hollywood {
      * an actor or a director
      */
     public Set<String> getFilms(String personName) {
+        Set<String> ans = new HashSet<>();
+        for (int i = 0; i< Director.size(); i++){
+            if(Director.get(i).equals(personName) || Actors.get(i).contains(personName)){
+                ans.add(FileName.get(i));
+            }
+        }
         // FIXME complete this method
-        return null;
+        return ans;
     }
 
     /**
@@ -91,8 +136,12 @@ public class Q3Hollywood {
      * @return the number of unique actors across all films
      */
     public int getNumActors() {
+        Set<String> uniqueActors = new HashSet<>();
+        for (int i = 0; i < FileName.size(); i++){
+            uniqueActors.addAll(Actors.get(i));
+        }
         // FIXME complete this method
-        return -1;
+        return uniqueActors.size();
     }
 
     /**
@@ -101,6 +150,11 @@ public class Q3Hollywood {
      * @return true if person1 and person2 have both been actors in the same film
      */
     public boolean areCoStars(String person1, String person2) {
+        for (int i = 0; i < FileName.size(); i++) {
+            if (Actors.get(i).contains(person1) && Actors.get(i).contains(person2)) {
+                return true;
+            }
+        }
         // FIXME complete this method
         return false;
     }
@@ -111,8 +165,16 @@ public class Q3Hollywood {
      * or director for any film
      */
     public int getFirstFilmYear(String personName) {
+        int ans = Integer.MAX_VALUE;
+        for(int i = 0; i< FileName.size(); i++){
+            if (Actors.get(i).contains(personName) || Director.get(i).equals(personName)){
+                if (ProductionYear.get(i) < ans){
+                    ans = ProductionYear.get(i);
+                }
+            }
+        }
         // FIXME complete this method
-        return -1;
+        return ans == Integer.MAX_VALUE? -1:ans;
     }
 
     /**
@@ -131,8 +193,27 @@ public class Q3Hollywood {
      * @return the maximum number of films for any person
      */
     public int getMaxFilms() {
+        Map<String, Integer> ans = new HashMap<>();
+        Set<String> Person = new HashSet<>();
+        for (int k = 0; k < Actors.size(); k++){
+            Person.addAll(Actors.get(k));
+            Person.add(Director.get(k));
+        }
+        for (String personName : Person){
+            for(int i = 0; i< Actors.size(); i++){
+                if (Actors.get(i).contains(personName) || Director.get(i).equals(personName)){
+                    if (!ans.containsKey(personName)){
+                        ans.put(personName, 1);
+                    }
+                    else {
+                        ans.put(personName, ans.getOrDefault(personName, 0) +1) ;
+                    }
+                }
+            }
+        }
+
         // FIXME complete this method
-        return -1;
+        return Collections.max(ans.values());
     }
 
     /**
@@ -153,6 +234,7 @@ public class Q3Hollywood {
      * @return the maximum number of co-stars for any actor
      */
     public int getMaxCoStars() {
+
         // FIXME complete this method
         return -1;
     }

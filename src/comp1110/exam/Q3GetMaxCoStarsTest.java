@@ -1,7 +1,12 @@
 package comp1110.exam;
 
 import org.junit.Rule;
+import org.junit.Test;
 import org.junit.rules.Timeout;
+
+import java.util.HashSet;
+import java.util.Set;
+
 import static org.junit.Assert.*;
 
 /**
@@ -32,6 +37,14 @@ public class Q3GetMaxCoStarsTest {
             new String[]{"Ice Cube", "Cuba Gooding, Jr.", "Angela Bassett", "Laurence Fishburne"},
             new String[]{"Jennifer Connolly", "Ice Cube", "Laurence Fishburne"}
     };
+    @Test
+    public void TestQ3GetMaxCoStars()  {
+        Q3Hollywood t = new Q3Hollywood();
+        for(int i = 0; i < 3; i++){
+            t.addFilm(names[i], years[i], directors[i], Set.of(actors[i]));
+        }
+        assertEquals("Q3GetMaxCoStars() returned incorrect number of MaxCoStars", 1, t.getMaxCoStars());
+    }
 
     // FIXME add one or more JUnit unit tests for the getMaxCoStars() method of the Q3Hollywood class
 }
