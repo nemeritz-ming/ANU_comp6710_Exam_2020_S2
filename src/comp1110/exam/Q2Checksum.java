@@ -1,12 +1,10 @@
 package comp1110.exam;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Scanner;
 
 /**
  * COMP1110 Final Exam, Question 2
@@ -69,18 +67,35 @@ public class Q2Checksum {
           }
         }
         List<Byte> Final = new ArrayList<>();
-//        for(int k = 0; k < (box.size() + first.size()); k++){
-//          if(k % 11 == 0){
-//            Final.add(first.get(0));
-//            first.remove(first.get(0));
-//          }
-//          else {
-//            Final.add(String.valueOf();
-//          }
-//        }
+
 
       }catch (IOException e){
         e.printStackTrace();
+      }
+    }
+    else{
+      FileInputStream in = null;
+      FileOutputStream out = null;
+
+      try {
+        in = new FileInputStream(input);
+        out = new FileOutputStream(output);
+        int i = 0;
+        while ((i = in.read()) != -1) {
+          byte b = (byte) i;
+          out.write(b);
+        }
+      } catch (FileNotFoundException e) {
+        e.printStackTrace();
+      } catch (IOException e) {
+        e.printStackTrace();
+      } finally {
+        try {
+          in.close();
+          out.close();
+        } catch (IOException e) {
+          e.printStackTrace();
+        }
       }
     }
 
@@ -94,7 +109,4 @@ public class Q2Checksum {
     return ans;
   }
 
-  public static void main(String[] args) {
-    System.out.println(String.valueOf((char) (97)));
-  }
 }
