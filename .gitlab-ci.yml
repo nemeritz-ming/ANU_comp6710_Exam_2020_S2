@@ -25,6 +25,14 @@ P2:
     - python3 /checkmc.py p-2.csv 4 abcde
   allow_failure: true
 
+Q6:
+  tags:
+    - comp1110
+  stage: test
+  script:
+    - python3 /checkmc.py q-6.csv 4 abcde
+  allow_failure: true
+
 P1:
   tags:
     - comp1110
@@ -33,3 +41,78 @@ P1:
     - java -cp $CP org.junit.runner.JUnitCore comp1110.exam.P1HelloWorldTest
   allow_failure: true
 
+Q1.1:
+  tags:
+    - comp1110
+  stage: test
+  script:
+    - java -cp $CP org.junit.runner.JUnitCore comp1110.exam.Q1FloorTest
+  allow_failure: true
+
+Q1.2:
+  tags:
+    - comp1110
+  stage: test
+  script:
+    - java -cp $CP org.junit.runner.JUnitCore comp1110.exam.Q1TwoThreeTest
+  allow_failure: true
+
+Q1.3:
+  tags:
+    - comp1110
+  stage: test
+  script:
+    - java -cp $CP org.junit.runner.JUnitCore comp1110.exam.Q1WordTest
+  allow_failure: true
+
+Q2:
+  tags:
+    - comp1110
+  stage: test
+  script:
+    - java -cp $CP org.junit.runner.JUnitCore comp1110.exam.Q2ChecksumTest
+  allow_failure: true
+
+Q3.1:
+  tags:
+    - comp1110
+  stage: test
+  script:
+    - java -cp $CP org.junit.runner.JUnitCore comp1110.exam.Q3HollywoodTest
+  allow_failure: true
+
+Q4:
+  tags:
+    - comp1110
+  stage: test
+  script:
+    - java -cp $CP org.junit.runner.JUnitCore comp1110.exam.Q4FerrisWheelTest
+  allow_failure: true
+
+Q5:
+  tags:
+    - comp1110
+  stage: test
+  script:
+    - java -cp $CP org.junit.runner.JUnitCore comp1110.exam.Q5AddressTest
+  allow_failure: true
+
+Q3.2:
+  tags:
+    - comp1110
+  stage: test
+  script:
+    - good=1; bad=0;
+    - java -cp /exam/G:$CP org.junit.runner.JUnitCore comp1110.exam.Q3GetMaxCoStarsTest || good=0
+    - java -cp /exam/B0:$CP org.junit.runner.JUnitCore comp1110.exam.Q3GetMaxCoStarsTest || b0=$?
+    - if [ $b0 -eq 1 ]; then bad=$((bad+1)); fi;
+    - java -cp /exam/B1:$CP org.junit.runner.JUnitCore comp1110.exam.Q3GetMaxCoStarsTest || b1=$?
+    - if [ $b1 -eq 1 ]; then bad=$((bad+1)); fi;
+    - java -cp /exam/B2:$CP org.junit.runner.JUnitCore comp1110.exam.Q3GetMaxCoStarsTest || b2=$?
+    - if [ $b2 -eq 1 ]; then bad=$((bad+1)); fi;
+    - java -cp /exam/B3:$CP org.junit.runner.JUnitCore comp1110.exam.Q3GetMaxCoStarsTest || b3=$?
+    - if [ $b3 -eq 1 ]; then bad=$((bad+1)); fi;
+    - if [ $good -eq 0 ]; then echo; echo "Unit test rejected good program."; echo "0/5 marks"; false; fi
+    - if [ $bad -ne 4 ]; then m=$(($bad+1)); echo; echo "Unit test passed good program but only rejected $bad/4 bad programs."; echo "$m/5 marks"; false; fi
+    - if [ $bad -eq 4 ]; then echo; echo "Unit test passed good program and rejected 4 bad programs."; echo "5/5 marks"; fi
+  allow_failure: true

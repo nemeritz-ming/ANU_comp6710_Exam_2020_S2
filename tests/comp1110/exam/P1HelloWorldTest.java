@@ -1,10 +1,8 @@
 package comp1110.exam;
 
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
+import org.junit.*;
 import org.junit.rules.Timeout;
+import org.junit.runners.MethodSorters;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
@@ -14,6 +12,7 @@ import java.util.regex.Pattern;
 import static org.junit.Assert.*;
 import static org.junit.Assert.assertTrue;
 
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class P1HelloWorldTest {
 	@Rule
 	public Timeout globalTimeout = Timeout.millis(1000);
