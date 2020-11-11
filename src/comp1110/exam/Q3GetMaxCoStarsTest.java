@@ -43,7 +43,7 @@ public class Q3GetMaxCoStarsTest {
         for(int i = 0; i < 3; i++){
             t.addFilm(names[i], years[i], directors[i], Set.of(actors[i]));
         }
-        assertEquals("Q3GetMaxCoStars() returned incorrect number of MaxCoStars", 1, t.getMaxCoStars());
+        assertEquals("Q3GetMaxCoStars() returned incorrect number of MaxCoStars", 5, t.getMaxCoStars());
     }
 
     // FIXME add one or more JUnit unit tests for the getMaxCoStars() method of the Q3Hollywood class
