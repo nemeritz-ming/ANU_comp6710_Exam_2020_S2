@@ -17,7 +17,7 @@ import static org.junit.Assert.assertTrue;
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class Q5AddressTest {
     @Rule
-    public Timeout globalTimeout = Timeout.millis(1000);
+    public Timeout globalTimeout = Timeout.millis(2000);
 
     public static final int HASH_ITERATIONS = 100;
 
